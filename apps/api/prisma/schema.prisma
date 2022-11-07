@@ -1,0 +1,52 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  gender    gender   @default(Male)
+  age       Int?
+  password  String?
+  type      type     @default(Moderator)
+  bloodtype String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+model Hospital {
+  id        Int      @id @default(autoincrement())
+  city      String
+  country   String
+  adress    String?
+  phone     String?
+  location  String?
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+enum gender {
+  Male
+  Female
+}
+
+enum type {
+  Moderator
+  Donor
+  Needy
+}
